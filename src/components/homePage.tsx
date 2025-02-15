@@ -42,7 +42,7 @@ function HomePage() {
     });
     const data = await response.json();
     setCurl(data.result);
-    setDifferences(data.differences);
+    // setDifferences(data.differences);
   };
   return (
     <div

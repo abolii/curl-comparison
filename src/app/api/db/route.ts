@@ -4,13 +4,13 @@ import { NextResponse } from "next/server";
 export const POST = async (req: Request) => {
   try {
     const { userCurl } = await req.json();
-
     const { rows } = await pool.query(
-      `SELECT curl FROM gsb ORDER BY levenshtein(curl, $1) LIMIT 1;`,
+      `SELECT curl FROM gsb ORDER BY similarity(curl, $1) LIMIT 1;`,
       [userCurl]
     );
 
     return NextResponse.json({
+      // result: userCurl ? userCurl : "No match found",
       result: rows.length > 0 ? rows[0].curl : "No match found",
     });
   } catch (error) {
